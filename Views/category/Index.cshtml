@@ -1,0 +1,47 @@
+﻿@model IEnumerable<InterviewTask.Models.categoryModel>
+
+
+<div id="partialData"></div>
+
+
+<table class="table">
+    @{ double Dnum = 0.0; int num = 0;}
+    <tr>
+        @foreach (var item in Model)
+        {
+
+            {
+                Dnum = double.Parse(item.PageCount.ToString()) / 5;
+                if ((Dnum % 1) > 0)
+                {
+                    num = ((item.PageCount) / 5) + 1;
+                }
+                if ((Dnum % 1 == 0))
+                {
+                    num = ((item.PageCount) / 5);
+                }
+            }
+        }
+
+        @for (int i = 1; i <= num; i++)
+        {
+            <td>
+                <button onclick="fetchNext((@i-1))">@i</button>
+            </td>
+        }
+
+    </tr>
+
+</table>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<script>
+    $('#partialData').load('/category/View/0');
+
+    function fetchNext(data) {
+        $('#partialData').load('/category/View/'+data);
+    }
+</script>
